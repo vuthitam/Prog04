@@ -10,7 +10,6 @@ def getDomain():
     argparser.add_argument("--url", default=None, help='Ban nho nhap URL')
     args = argparser.parse_args()
     url = args.url
-    print("url:",url)
     domain = ""
     if url[0:8] == "https://":
         for i in range(8, len(url)):
@@ -24,7 +23,7 @@ def getDomain():
             domain += url[i]
     return domain
 
-def recvAll(s):
+def receiveData(s):
     data = []
     response = s.recv(4096)
     while (len(response) > 0):
@@ -35,7 +34,6 @@ def recvAll(s):
     return response
 
 def main():
-    #domain = "blogtest.vnprogramming.com"
     domain = getDomain()
     title = ""
 
@@ -44,7 +42,7 @@ def main():
     request = "GET / HTTP/1.1\r\nHOST: "+domain+"\r\n\r\n"
     request = request.encode()
     client.send(request)
-    response = recv_all(client)
+    response = receiveData(client)
     for i in range(0, len(response)):
     	if title != "":
     	    break
